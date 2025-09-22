@@ -1,0 +1,16 @@
+<!-- sitemap.xml -->
+
+<!-- This file helps search engines crawl your site. It lists all the pages on your website. -->
+
+<!-- Since this is a single-page blog, we only list the index.html file. -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="[suspicious link removed]">
+<url>
+<loc>https://www.google.com/search?q=https://badrpedgho97.github.io/my-simple-blog/</loc>
+<lastmod>2023-10-27</lastmod>
+<changefreq>weekly</changefreq>
+<priority>1.0</priority>
+</url>
+</urlset>
