@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A simple, personal blog website for sharing thoughts and ideas.">
+    <title>My Simple Blog</title>
+    <link rel="canonical" href="https://your-username.github.io/your-repository-name/">
+    <style>
+        /* Basic CSS Reset */
+        body, h1, h2, p {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Container for the whole page */
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Header styling */
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+        }
+
+        /* Blog post card styling */
+        .blog-post {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .blog-post h2 {
+            font-size: 1.8rem;
+            color: #0056b3;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post .author {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .blog-post .content {
+            white-space: pre-wrap;
+            color: #555;
+        }
+
+        /* Message for no posts or error */
+        .message {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #888;
+            margin-top: 2rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <h1>My Simple Blog</h1>
+            <p>A place for thoughts, ideas, and stories.</p>
+        </header>
+
+        <main id="posts-container">
+            <!-- Blog posts will be rendered here by JavaScript -->
+            <p class="message">Loading posts...</p>
+        </main>
+    </div>
+
+    <script>
+        // JavaScript to fetch and display blog posts
+        
+        // Function to fetch posts from the JSON file
+        async function fetchPosts() {
+            try {
+                // Fetch the posts.json file
+                const response = await fetch('posts.json');
+                
+                // Check if the response is successful
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                
+                // Parse the JSON data
+                const posts = await response.json();
+                
+                // Get the container element where posts will be displayed
+                const postsContainer = document.getElementById('posts-container');
+                postsContainer.innerHTML = ''; // Clear the "Loading posts..." message
+
+                // Check if there are posts to display
+                if (posts.length === 0) {
+                    postsContainer.innerHTML = '<p class="message">No posts to display yet.</p>';
+                    return;
+                }
+
+                // Loop through each post and create HTML elements for it
+                posts.forEach(post => {
+                    // Create a div for the blog post
+                    const postElement = document.createElement('div');
+                    postElement.classList.add('blog-post');
+
+                    // Set the inner HTML with the post data
+                    postElement.innerHTML = `
+                        <h2>${post.title}</h2>
+                        <p class="author">By ${post.author}</p>
+                        <p class="content">${post.content}</p>
+                    `;
+
+                    // Add the new post element to the container
+                    postsContainer.appendChild(postElement);
+                });
+
+            } catch (error) {
+                // Log and display any errors that occur
+                console.error('Failed to fetch posts:', error);
+                const postsContainer = document.getElementById('posts-container');
+                postsContainer.innerHTML = '<p class="message">Failed to load posts. Please check the console for details.</p>';
+            }
+        }
+
+        // Call the function to fetch and display posts when the page loads
+        fetchPosts();
+
+    </script>
+
+</body>
+</html>
