@@ -1,0 +1,8 @@
+robots.txt
+This file tells search engines which pages they are allowed to crawl.
+In this case, we are allowing all search engines to crawl all pages.
+The 'sitemap' line tells search engines where to find your sitemap file.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.google.com/search?q=https://badrpedgho97.github.io/my-simple-blog/sitemap.xml
